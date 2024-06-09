@@ -1,5 +1,9 @@
 import flatpickr from 'flatpickr';
 import 'flatpickr/dist/flatpickr.min.css';
+import iziToast from 'izitoast';
+import 'izitoast/dist/css/iziToast.min.css';
+
+import imageUrl from '../img/alert-icon.svg';
 
 const refs = {
   inputEl: document.querySelector('#datetime-picker'),
@@ -11,6 +15,7 @@ const refs = {
 };
 const { inputEl, btnEl, daysEl, hoursEl, minutesEl, secondsEl } = refs;
 
+btnEl.disabled = true;
 let userSelectedDate;
 let intervalId;
 
@@ -22,8 +27,24 @@ const options = {
   onClose(selectedDates) {
     userSelectedDate = selectedDates[0];
     if (userSelectedDate < new Date()) {
-      window.alert('Please choose a date in the future');
       btnEl.disabled = true;
+      iziToast.error({
+        message: 'Please choose a date in the future',
+        backgroundColor: '#ef4040',
+        messageColor: '#fff',
+        messageSize: '16',
+        imageWidth: 302,
+        close: true,
+        closeOnEscape: true,
+        closeOnClick: true,
+        progressBar: true,
+        progressBarColor: '#b51b1b',
+        transitionIn: 'flipInX',
+        transitionOut: 'flipOutX',
+        position: 'topRight',
+        iconUrl: imageUrl,
+        theme: 'dark',
+      });
     } else if (userSelectedDate > new Date()) {
       btnEl.disabled = false;
     }
@@ -44,19 +65,14 @@ btnEl.addEventListener('click', () => {
 });
 
 function convertMs(ms) {
-  // Number of milliseconds per unit of time
   const second = 1000;
   const minute = second * 60;
   const hour = minute * 60;
   const day = hour * 24;
 
-  // Remaining days
   const days = Math.floor(ms / day);
-  // Remaining hours
   const hours = Math.floor((ms % day) / hour);
-  // Remaining minutes
   const minutes = Math.floor(((ms % day) % hour) / minute);
-  // Remaining seconds
   const seconds = Math.floor((((ms % day) % hour) % minute) / second);
 
   daysEl.textContent = days.toString().padStart(2, '0');

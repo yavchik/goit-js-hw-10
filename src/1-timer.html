@@ -5,31 +5,37 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Timer</title>
+    <link rel="stylesheet" href="./css/styles.css" />
+    <link rel="stylesheet" href="./css/reset.css" />
+    <link rel="stylesheet" href="./css/1-timer.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css"
+    />
   </head>
   <body>
+    <a href="./index.html">Go to back</a>
     <section>
-      <a href="./index.html">Go to back</a>
+      <input class="flatpicker-input" type="text" id="datetime-picker" />
+      <button type="button" data-start>Start</button>
     </section>
-
-    <input type="text" id="datetime-picker" />
-    <button type="button" data-start>Start</button>
 
     <div class="timer">
       <div class="field">
         <span class="value" data-days>00</span>
-        <span class="label">Days</span>
+        <span class="label">DAYS</span>
       </div>
       <div class="field">
         <span class="value" data-hours>00</span>
-        <span class="label">Hours</span>
+        <span class="label">HOURS</span>
       </div>
       <div class="field">
         <span class="value" data-minutes>00</span>
-        <span class="label">Minutes</span>
+        <span class="label">MINUTES</span>
       </div>
       <div class="field">
         <span class="value" data-seconds>00</span>
-        <span class="label">Seconds</span>
+        <span class="label">SECONDS</span>
       </div>
     </div>
 
