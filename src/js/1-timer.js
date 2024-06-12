@@ -1,5 +1,6 @@
 import flatpickr from 'flatpickr';
 import 'flatpickr/dist/flatpickr.min.css';
+
 import iziToast from 'izitoast';
 import 'izitoast/dist/css/iziToast.min.css';
 
@@ -28,6 +29,7 @@ const options = {
     userSelectedDate = selectedDates[0];
     if (userSelectedDate < new Date()) {
       btnEl.disabled = true;
+      btnEl.classList.remove('right-date');
       iziToast.error({
         message: 'Please choose a date in the future',
         backgroundColor: '#ef4040',
@@ -47,6 +49,7 @@ const options = {
       });
     } else if (userSelectedDate > new Date()) {
       btnEl.disabled = false;
+      btnEl.classList.add('right-date');
     }
   },
 };
@@ -60,6 +63,7 @@ btnEl.addEventListener('click', () => {
     const diff = userSelectedDate - currentTime;
     convertMs(diff);
   }, 1000);
+  btnEl.classList.remove('right-date');
   btnEl.disabled = true;
   inputEl.disabled = true;
 });
