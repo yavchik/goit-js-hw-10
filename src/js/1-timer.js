@@ -17,7 +17,7 @@ const refs = {
 const { inputEl, btnEl, daysEl, hoursEl, minutesEl, secondsEl } = refs;
 
 btnEl.disabled = true;
-let userSelectedDate;
+let userSelectedDate = 0;
 let intervalId;
 
 const options = {
@@ -27,7 +27,7 @@ const options = {
   minuteIncrement: 1,
   onClose(selectedDates) {
     userSelectedDate = selectedDates[0];
-    if (userSelectedDate < new Date()) {
+    if (userSelectedDate < Date.now()) {
       btnEl.disabled = true;
       btnEl.classList.remove('right-date');
       iziToast.error({
@@ -57,15 +57,18 @@ const options = {
 flatpickr(inputEl, options);
 
 btnEl.addEventListener('click', () => {
-  if (intervalId) clearInterval(intervalId);
   intervalId = setInterval(() => {
     const currentTime = Date.now();
     const diff = userSelectedDate - currentTime;
     convertMs(diff);
   }, 1000);
+
   btnEl.classList.remove('right-date');
   btnEl.disabled = true;
   inputEl.disabled = true;
+  setTimeout(() => {
+    clearInterval(intervalId);
+  }, userSelectedDate.getTime() - Date.now());
 });
 
 function convertMs(ms) {
